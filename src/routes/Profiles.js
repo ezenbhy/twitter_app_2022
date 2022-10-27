@@ -63,6 +63,20 @@ function Profiles({userObj}) {
     setAttachment("");
 
   }
+
+  useEffect( () => { //실시간 데이터베이스 문서들 가져오기
+    //getTweets();
+    const q = query(collection(db, "tweets"),
+              orderBy("createAt","desc"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const newArray = [];
+      querySnapshot.forEach((doc) => {
+        newArray.push({...doc.data(), id:doc.id });
+      });
+      //console.log(newArray);
+      setTweets(newArray);
+    });
+  } ,[]);
   const onFileChange = e => {
     //console.log(e.target.files);
     const {target: {files}} = e;
