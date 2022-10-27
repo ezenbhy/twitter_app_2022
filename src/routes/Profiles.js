@@ -9,11 +9,12 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid';
 
 function Profiles({userObj}) {
+  console.log(userObj.photoURL);
   const [tweets, setTweets] = useState([]);
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [attachment, setAttachment] = useState("");
-  const [newPhotoURL, setNewPhotoURL] = useState("");
+  
 
   const onLogOutClick = () => {
     authService.signOut();
@@ -52,14 +53,15 @@ function Profiles({userObj}) {
       //console.log(response);
       attachmentUrl =  await getDownloadURL(ref(storage, response.ref));
       console.log(attachmentUrl);
-      setNewPhotoURL(attachmentUrl);
+      
     }
 
-    if(userObj.displayName != newDisplayName || userObj.photoURL != newPhotoURL){
+    if(userObj.displayName != newDisplayName || userObj.photoURL != null){
       await updateProfile(userObj, 
-        {displayName: newDisplayName, photoURL: newPhotoURL});
+        {displayName: newDisplayName, photoURL: attachmentUrl});
     }
     setAttachment("");
+
   }
   const onFileChange = e => {
     //console.log(e.target.files);

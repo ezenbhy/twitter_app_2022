@@ -14,7 +14,7 @@ function Navigation({userObj}) {
             {userObj.displayName} 
             Profile 
             {userObj.photoURL && (
-                <img src={userObj.photoURL} width="50" height="50" />
+                <img src={userObj.photoURL} width="100" height="100" />
               )}</Link>
           
         </li>
