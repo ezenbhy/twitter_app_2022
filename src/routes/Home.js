@@ -5,11 +5,12 @@ import Tweet from 'components/Tweet';
 import { v4 as uuidv4 } from 'uuid';
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import TweetFactory from 'components/TweetFactory';
+import Tweets from 'components/Tweets';
 
 function Home({userObj}) {
   //console.log(userObj);
   
-  const [tweets, setTweets] = useState([]);
+  //const [tweets, setTweets] = useState([]);
   
 
 /*
@@ -24,6 +25,7 @@ function Home({userObj}) {
     });
   }
 */
+/*
   useEffect( () => { //실시간 데이터베이스 문서들 가져오기
     //getTweets();
     const q = query(collection(db, "tweets"),
@@ -36,8 +38,8 @@ function Home({userObj}) {
       //console.log(newArray);
       setTweets(newArray);
     });
-  } ,[]);
-
+  } ,[tweets]);
+*/
   //console.log(tweets);
   
   
@@ -45,7 +47,7 @@ function Home({userObj}) {
   return (
     <>
     <TweetFactory userObj={userObj} />
-    <div>
+    {/* <div>
       {tweets.map(tweet => (
         <Tweet 
           key={tweet.id}
@@ -54,7 +56,8 @@ function Home({userObj}) {
       
         />
       ))}
-    </div>
+    </div> */}
+    <Tweets userObj={userObj} />
     </>
   )
 }
