@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Tweets from 'components/Tweets';
 
 function Profiles({userObj}) {
-  console.log(userObj.photoURL);
+  //console.log(userObj.photoURL);
   const [tweets, setTweets] = useState([]);
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -97,7 +97,7 @@ function Profiles({userObj}) {
       }
     </form>
     <button onClick={onLogOutClick}>Log Out</button>
-    {/* <div>
+    <div>
       {tweets.map(tweet => (
         <Tweet 
           key={tweet.id}
@@ -105,8 +105,8 @@ function Profiles({userObj}) {
           isOwner={tweet.createId === userObj.uid}
         />
       ))}
-    </div> */}
-    <Tweets userObj={userObj}/>
+    </div>
+    {/* <Tweets userObj={userObj}/> */}
     </>
   )
 }
