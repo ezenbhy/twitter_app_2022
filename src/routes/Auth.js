@@ -1,30 +1,40 @@
-import React, { useState } from 'react';
-import {authService} from 'fbase';
-import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { async } from '@firebase/util';
 import AuthForm from 'components/AuthForm';
+import {authService} from 'fbase';
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider,signInWithPopup } from "firebase/auth";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "styles/auth.scss";
 
 function Auth() {
 
-  const onSocialClick = (e) => {
+  const onSocialClick = async (e) => {
     //console.log(e.target.name);
-    const {target: {name}} = e;
-    let provider
+    const {target: {name},} = e;
+    let provider;
     if(name === "google"){
-        provider = new GoogleAuthProvider();
+      provider = new GoogleAuthProvider();
     }else if(name === "github"){
-        provider = new GithubAuthProvider();
+      provider = new GithubAuthProvider();
     }
-    const data = signInWithPopup(authService, provider);
+    const data = await signInWithPopup(authService, provider);
+
     //console.log(data);
-  } 
+  };
 
   return (
-    <div>
-        <AuthForm />
-        <div>
-            <button onClick={onSocialClick} name="google">Continue with Google</button>
-            <button onClick={onSocialClick} name="github">Continue with Github</button>
-        </div>
+    <div className="authContainer">
+      <FontAwesomeIcon icon="fa-brands fa-twitter" 
+      color={"#04AAFF"} size="3x" style={{marginBottom:30}}/>
+      <AuthForm />
+      <div className="authBtns">
+        <button onClick={onSocialClick} name="google" className="authBtn">
+          Continue with Google <FontAwesomeIcon icon="fa-brands fa-google" />
+        </button>
+        <button onClick={onSocialClick} name="github" className="authBtn">
+          Continue with Github <FontAwesomeIcon icon="fa-brands fa-github" />
+        </button>
+      </div>
     </div>
   )
 }
